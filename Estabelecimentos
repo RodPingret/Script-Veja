@@ -1,0 +1,113 @@
+const WORDPRESS_URL = 'https://vejario.abril.com.br';
+const TOKEN = 'rnkU 8sAj OFEE mnlW OsH0 KOyi';
+const ESTABELECIMENTO_ID = 466902; // Tula Bistrô Vegetal
+
+function testarFormatosAutenticacao() {
+  Logger.log('🔐 TESTANDO DIFERENTES FORMATOS DE AUTENTICAÇÃO\n');
+  Logger.log('='.repeat(70) + '\n');
+
+  const testData = {
+    meta: {
+      'estabelecimento_fechado': 'sim'
+    }
+  };
+
+  const formatos = [
+    {
+      nome: 'Bearer (JWT)',
+      headers: {
+        'Authorization': `Bearer ${TOKEN}`
+      }
+    },
+    {
+      nome: 'Bearer (sem espaço)',
+      headers: {
+        'Authorization': `Bearer${TOKEN}`
+      }
+    },
+    {
+      nome: 'Basic Auth',
+      headers: {
+        'Authorization': `Basic ${Utilities.base64Encode(TOKEN + ':')}`
+      }
+    },
+    {
+      nome: 'Custom X-Token Header',
+      headers: {
+        'X-Token': TOKEN
+      }
+    },
+    {
+      nome: 'Custom Authorization Header (token direto)',
+      headers: {
+        'Authorization': TOKEN
+      }
+    },
+    {
+      nome: 'Query Parameter (GET)',
+      url: `?token=${TOKEN}`
+    },
+    {
+      nome: 'Query Parameter (apikey)',
+      url: `?apikey=${TOKEN}`
+    }
+  ];
+
+  formatos.forEach((formato, idx) => {
+    Logger.log(`\n[${idx + 1}] ${formato.nome}`);
+    Logger.log('-'.repeat(70));
+
+    try {
+      const url = `${WORDPRESS_URL}/wp-json/wp/v2/estabelecimento/${ESTABELECIMENTO_ID}${formato.url || ''}`;
+
+      const options = {
+        method: 'put',
+        headers: formato.headers || {},
+        payload: JSON.stringify(testData),
+        muteHttpExceptions: true
+      };
+
+      // Mostrar headers
+      if (formato.headers) {
+        Object.keys(formato.headers).forEach(key => {
+          Logger.log(`  Header: ${key}: ${formato.headers[key].substring(0, 50)}...`);
+        });
+      }
+
+      const response = UrlFetchApp.fetch(url, options);
+      const statusCode = response.getResponseCode();
+      const responseText = response.getContentText();
+
+      Logger.log(`  Status: ${statusCode}`);
+
+      if (statusCode === 200 || statusCode === 201) {
+        Logger.log(`  ✅ SUCESSO! Este é o formato correto!`);
+        Logger.log(`  Resposta: ${responseText.substring(0, 100)}`);
+        return formato;
+      } else {
+        Logger.log(`  ❌ Falhou`);
+        if (responseText.length < 200) {
+          Logger.log(`  Resposta: ${responseText}`);
+        }
+      }
+
+    } catch (e) {
+      Logger.log(`  ⚠️ Erro: ${e.message}`);
+    }
+
+    Utilities.sleep(300);
+  });
+
+  Logger.log('\n' + '='.repeat(70));
+  Logger.log('\n💡 SE NENHUM FUNCIONOU:');
+  Logger.log('O token pode ser:');
+  Logger.log('1. Um JWT token (comeca com eyJ...)');
+  Logger.log('2. Um Application Password do WordPress');
+  Logger.log('3. Um token de um plugin especifico');
+  Logger.log('4. Username:Password em Base64');
+  Logger.log('\n🔗 Verifique: https://vejario.abril.com.br/wp-admin/profile.php');
+  Logger.log('Procure por Application Passwords ou REST API');
+}
+
+// Executar
+testarFormatosAutenticacao();
