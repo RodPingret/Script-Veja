@@ -1,0 +1,129 @@
+const API_KEY = 'AIzaSyBfHGzzVUniHb-xs2luMAJUv_5NpMGXrmQ';
+
+function verificarTodos511() {
+  const estabelecimentos = [
+    'Tula Bistrô Vegetal', 'Padê', 'MII', 'Bar de Sto António', 'Otí', 'Borogun', 'Pura Rio', 'Bonifácio e Berenice', 'Tin Tin', 'Three Monkeys House',
+    'Diamante Gastrobar', 'Ruta Cozinha', 'Vicco', 'Salí', 'Si-chou', 'Bisou Bisou', 'Malkah', 'Brasa Mohamed', 'Polpo Taberna do Mar', 'Mortadella\'s',
+    'Traçado', 'Otra Bar', 'Birosca', 'Café Marinas', 'Bahl', 'Gero Panini', 'Keka Maré Alta', 'Manabu', 'Bazzar à Vins', 'Dim Sum Rio',
+    'Kitchen Asian Food', 'Tasca Miúda', 'de Lamare', 'Be+Co', 'Medusa Urbana Vinhobar', 'Terrazza', 'Le Terroir', 'Liga dos Botecos', 'Fuchico Bar', 'Boxx Botafogo',
+    'Boleia', 'The Rooftop Selina Lapa', 'Montagu — The Sandwich', 'Nanica', 'Miamor Atelier', 'Belga Wafel', 'Del Plin', 'Refeitório Orgânico', 'Alvaro\'s', 'Geliamo',
+    'The Burger Experience', 'Jarbô Café e Brasserie', 'KVA Kitchen & Bar', 'Down Jones Market Beer', 'Grid Foodbar', 'Mixxing', 'Laguiole Lab', 'Urbanito', 'Chez Lalu', 'Beer House 57',
+    'Dona Désirée', 'Bar 3 Marias', 'Ino', 'Serpentina Bar Artesanal', 'BW Belgian Waffle', 'Costelas', 'Burgertopia', 'Urukum', 'Coisa de Carioca', 'Joana Pizza Bar',
+    'MEALS Burger e Deli', 'Toutsie', 'Tahpah', 'Venchi – Ipanema', 'Kamaleón', 'Kino Bar', 'Ana Foster', 'One Sushi', 'Botto Bar Botafogo', 'Il Boss Hamburgueria Gourmet',
+    'Pax Delícia – Lagoon', 'CT Brasserie – Fashion Mall', 'Brasserie Rosário', 'Osteria Policarpo', 'Rancho Inn', 'Bottega del Vino', 'Gero Trattoria', 'Puro', 'Oui Oui', 'Oscar Bistrô Bar',
+    'Simon Boccanegra', 'Eça', 'Japa B', 'La Nave Bistrô Bar', 'Azam Bistrô', 'Creative Bar', 'Fábrica Nômade', 'Botequim Rio Antigo', 'Playgrowler', 'Bar do Camarão',
+    'Gattopardo', 'Graviola – Leblon', 'Carolinas Feito em Casa', 'Boulangerie Guerin', 'Manekineko – Itanhangá', 'Manekineko – Ipanema', 'Wakame', 'Mundeco', 'Shin Koike', 'Ojo',
+    'Beefit', 'Okanossa', 'Roman Izakaya', 'Botto Bar Barra', 'Tabuleiro da Keka', 'Mama Shelter Rio', 'Il Pane e Gelato Sardo', 'Legião Carioca', 'Le Café d\'Ici', 'Petit Formidable',
+    'Ginger Mamut', 'Wursteria', 'Wishawich', 'Prorrogação Sport and Beers', 'Pop Sucos', 'Hop Lab Pub', 'P.F. Chang\'s', 'Beerita', 'Fica Café', 'Tupac',
+    'Folie à Deux', 'Capim Santo', 'Batô Frutos do Mar', 'Manekineko – Leblon', 'Antiquarius', 'Empório Domani', 'Manifesto BCA', 'Meza Bar', 'Sobe', 'Da Cozinha Café',
+    'Buteco Dus Deuses', 'Casarão 1903', 'Red Queen', 'Peixaria Trattoria Mediterrânea', 'DC lá em cima', 'A Polonesa', 'Cosmopolita', 'Alice Bar', 'Informal Cozinha de Bar', 'Mensateria',
+    'Deli 43 – Leblon', 'Azteka', 'Baretto-Londra', 'Entretapas', 'Pisco Gastrobar', 'CafeMaison', 'Naturalie Bistrô', 'Inverso Bar', 'Nocaute Fight Bar', 'Landhaus',
+    'Hopfen Artesanal', 'Bar Vinte', 'Pomodorino', 'Guy Restaurante', 'Stravaganze', 'Casa da Suíça', 'Poeira da Lata', 'Galeria Toulouse Arte Contemporânea', 'Umas & Ostras', 'Nomangue Caiçara',
+    'Pomar Orgânico', 'Biocarioca', 'Yumê', 'Ten Kai – Ipanema', 'Ten Kai – Centro', 'Boteco Taco', 'Nik Sushi', 'Mori Ohta Sushi', 'Birreria Escondido, CA', 'Bar do Belmiro',
+    'O Original do Brás', 'Rosa Chopp', 'La Fabrique', 'Le Bistrot du Cuisinier', 'Nook Bier', 'Barviéra', 'Feitiço da Vila', 'L\'Atelier du Cuisinier', 'Usina 47', 'Stuzzi',
+    'Gaia Art & Café', 'Yeasteria – Ponto Cervejeiro', 'Dry Martini Rio', 'Cerveja Social Clube', 'Churrasquinhos Brasinha', 'Forneria Santa Filomena', 'Tapas y Besos', 'Hanna Beer', 'Palaphita Gávea', 'Palaphita Kitch',
+    'Tô Nem Aí', 'Lord Jim Pub', 'Qué Quieres?', 'Nonna Ridolfi', 'Market Ipanema', 'Lype', 'Eleven Rio', 'Casa Momus', 'Trapiche Gamboa', 'Choperia Brazooka',
+    'TribOz', 'Joe & Leo\'s Botafogo', 'Hell\'s Burguer', 'Orange Burger', 'Meating Homemade Burgers', 'Il Piccolo Caffè Biergarten', 'Hareburger – Leblon', 'Bar Luiz', 'Paradis Délices Français', 'Meloá',
+    'Deli 43 – Pavelka', 'Piccola Itália', 'Café Secreto', 'Kraft Café', 'Terzetto Café', 'Biscoiteca', 'Venchi – Ipanema', 'Venchi – Leblon', 'Venchi – Barra', 'Sublime Cervejas',
+    'Baby Beef', 'Pub Escondido, CA', 'Mud Bug', 'As Melhores Cervejas do Mundo', 'Officina del Gelato – Centro', 'Sofá Café – Copacabana', 'Café Carandaí', 'La Cabrera', 'Escola do Pão', 'Charleston Bubble Lounge',
+    'S.P.A. Pane', 'Gelato Mio', 'Oke Ka Baianatem', 'Carolina Sales Pâtisserie de Brigadeiros', 'Void Botafogo', 'The Cannibal', 'Brigadeiros do Tuiter', 'Saloon 79', 'Lupulino', 'Cozinha Artagão',
+    'Destemidos Pub & Burgueria', 'Calavera Kitchen & Bar', 'Risata', 'Fasano Al Mare', 'Opium', 'Cedro do Líbano', 'O Árabe da Gávea', 'Via 44', 'Il Borgo del Conte', 'Sofá Café',
+    'Casa da Matriz', 'Espaço Britannia', 'Esquina 111 Rádio Bar', 'PepperDog', 'Riá Restaurant', 'Botecotaco', 'Bar do Lado', 'Casa Carandaí', 'Galeria Trópica', 'G Nutri',
+    'Pátrio', 'Radhe Shyam', 'Universo Orgânico', 'Espírito do Chopp', 'Beer Underground – Lapa', 'Beer Underground', 'Assemblage', 'Shenanigan\'s Irish Pub', 'Atelier da Imagem Espaço Cultural', 'Puebla Café',
+    'Kult Kolector', 'Suqueria Carioca', 'Irada! Point', 'Giro Leblon', 'Raízes da Lapa', 'Sindicato do Leme', 'Teatro Serrador', 'Cine Jóia Jacarepaguá', 'Complexo Lagoon', 'Uh Lalá',
+    'Artesanal Cooking Buffet', 'Ix Bistrot', 'Venda Mineira Café & Outras Delícias', 'Shin Miura', 'Aloha Sushi', 'PEK 170', 'Borogodó', 'Brasserie Lapeyre', 'Le Pré Catelan', 'Fiammetta – Botafogo',
+    'Paradis Délices Français', 'The Hellish Pub', 'Gente Bem', 'Primeira Pá', '14 Folhas', 'Complex Esquina 111', 'Nobrello', 'Botequim Seu Pires', 'Yalla Barra da Tijuca', 'Yalla',
+    'Sushi Blue', 'Espaço Candelária', 'Osório Bar', 'Milano Doc', 'Natural Beterraba Centro', 'Natural Beterraba Copacabana', 'Sem Vergonha Botequim', 'Alqui Sushi & Steak House', 'Errejota Gourmet', 'Majestade Sushi',
+    'A Propósito Food Service', 'Atlântico Sushi Pan Asiático', 'Atlântico Sushi', 'Minerva Fit Bistrô', 'Demas e Divas Recreio', 'Panamera Bistrô', 'Taiping', 'Real Astoria', 'Caroline Café', 'Salitre',
+    'Miroir', 'Varal Bistrô', 'Galeria Índica', 'Teatro Maison de France', 'Mestre-Cervejeiro.com', 'Porcão', 'Bar do Alto', 'Esconderijo Bar', 'Paletize', 'Confraria Carioca',
+    'Nebbiolo', 'Oi Futuro Ipanema', 'Botero em Pé', 'Salitre Ipanema', 'Pink Elephant Rio', 'Uva & Vinho', 'Bom Senso Bar e Braseteria', 'Casarão Austregésilo de Athayde', 'Casa do Saber', 'Cavist Vinoteca & Restô – Ipanema',
+    'Aqua Bossa Lounge', 'Marsiaj Tempo Galeria', 'Galeria Marly Faro', 'Espaço Acústica', 'The Week Rio', 'Casa Daros', 'Mestre Sala', 'Museu Internacional de Arte Naïf do Brasil', 'Teatro Eva Herz', 'Cuscuz Amado',
+    'Gávea Garden Bistrô', 'Cine 10 Sulacap', 'Estação Net Ipanema', 'Cinépolis Lagoon', 'Cine Candido Mendes', 'Casa de Abrahão Bistrô Árabe', 'Graphos: Brasil', '.Oztel', 'Juice Co.', 'Konomi Ai',
+    'Buda Sushi', 'Geisha Hi-Tech', 'The View', 'ESPAÇO CULTURAL CONSTITUIÇÃO', 'CASA DA MATRIZ', 'Centro Cultural Anglo Americano', 'Galeria Café', 'Lapa 40º', 'Centro Cultural Suassuna', 'CineMaison',
+    'Umê Sushi', 'Calecute', 'Café da Fábrica', 'Moinho Arte & Café', 'Dr. Brigadeiro', 'Melone', 'QG Sucos', 'Zack\'s', 'El Chalaco', 'Arte da Lua',
+    'Moviola', 'Beerjack hideout', 'Boteco Salvação', 'Boteko do Juca', 'Mekong', 'Costello da Barra', 'La Fiorentina', 'Arab da Lagoa', 'Armazém do Leme', 'Catrin',
+    'Memphis Belle Café', 'Blue Agave', 'Universo da Cerveja', 'Fat Choi', 'Enoteca Uno', 'Makoto', 'Tosaka', 'Kaiten', 'Dee Vine', 'Enoteca Terra',
+    'Julius Brasserie', 'Le Panier', 'Q Bistrô Brasileiro', 'Quinta do Bacalhau', 'Otto al Mare', 'Il Borsalino', 'La Fiducia', 'Porcão Gourmet', 'Fazendola', 'Casa do Filé',
+    'Mirante da Paz', 'La Paz', 'Casa de Ofício', 'Teatro Villa-Lobos', 'Dona Olinda', 'Café Severino', 'Nostro Caffè', 'Ci Bistrot', 'Dizfruta', 'Kaebisch Schokoladen',
+    'Confeitaria Gênova', 'O Rei das Empanadas', 'Garrafeiro Informal', 'Bar da Bud', 'Divino Malte', 'Azeitona & Cia.', 'Jeffrey Store', 'Tacos & Wraps', 'Tijucano Bar e Restaurante', 'Mani & Oca',
+    '00', 'Yosuki', 'Júlia Vinhos', 'Galeria 1618', 'I Piatti', 'Sentaí', 'Bazzar Café', 'CINEMAISON', 'Deliziosa', 'Atelier do Trigo',
+    'Antônia Casa e Café', 'Café Prefácio', 'Caffè Olé', 'The Fifties', 'Champanhota', 'Sinuca da Lapa', 'Paxeco Bar', 'Cabaret Lounge', '222 Contemporâneo', 'Matriarcado',
+    'Taberna Bier'
+  ];
+
+  Logger.log('🔍 Iniciando verificação de ' + estabelecimentos.length + ' estabelecimentos...\n');
+
+  const abertos = [];
+  const fechadosTemp = [];
+  const fechadosPerm = [];
+  const naoEncontrados = [];
+
+  estabelecimentos.forEach((nome, idx) => {
+    const progress = idx + 1;
+
+    if (progress % 50 === 0) {
+      Logger.log(`⏳ Processados: ${progress}/${estabelecimentos.length}...`);
+    }
+
+    const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(nome + ' Rio de Janeiro')}&key=${API_KEY}`;
+
+    try {
+      const searchResp = UrlFetchApp.fetch(searchUrl, { muteHttpExceptions: true });
+      const searchData = JSON.parse(searchResp.getContentText());
+
+      if (!searchData.results || searchData.results.length === 0) {
+        naoEncontrados.push(nome);
+        return;
+      }
+
+      const placeId = searchData.results[0].place_id;
+
+      const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,business_status&key=${API_KEY}`;
+      const detailsResp = UrlFetchApp.fetch(detailsUrl, { muteHttpExceptions: true });
+      const detailsData = JSON.parse(detailsResp.getContentText());
+
+      if (!detailsData.result) {
+        naoEncontrados.push(nome);
+        return;
+      }
+
+      const status = detailsData.result.business_status;
+
+      if (status === 'CLOSED_PERMANENTLY') {
+        fechadosPerm.push(nome);
+      } else if (status === 'CLOSED_TEMPORARILY') {
+        fechadosTemp.push(nome);
+      } else if (status === 'OPERATIONAL') {
+        abertos.push(nome);
+      }
+
+    } catch (e) {
+      Logger.log(`⚠️ Erro ao processar ${nome}: ${e.message}`);
+    }
+
+    Utilities.sleep(100);
+  });
+
+  // Criar planilha com resultados
+  Logger.log('\n📊 CRIANDO PLANILHA COM RESULTADOS...\n');
+
+  const sheet = SpreadsheetApp.create('Verificação 511 Estabelecimentos - ' + new Date().toLocaleString());
+  const ws = sheet.getActiveSheet();
+
+  ws.appendRow(['TIPO', 'NOME']);
+
+  fechadosPerm.forEach(nome => ws.appendRow(['FECHADO PERMANENTEMENTE', nome]));
+  fechadosTemp.forEach(nome => ws.appendRow(['FECHADO TEMPORARIAMENTE', nome]));
+  abertos.forEach(nome => ws.appendRow(['ABERTO', nome]));
+  naoEncontrados.forEach(nome => ws.appendRow(['NÃO ENCONTRADO', nome]));
+
+  // Resultado final
+  Logger.log('='.repeat(70));
+  Logger.log('✅ VERIFICAÇÃO COMPLETA!\n');
+  Logger.log(`✅ Abertos: ${abertos.length}`);
+  Logger.log(`🚫 Fechados temporariamente: ${fechadosTemp.length}`);
+  Logger.log(`⛔ Fechados permanentemente: ${fechadosPerm.length}`);
+  Logger.log(`❓ Não encontrados: ${naoEncontrados.length}`);
+  Logger.log(`📍 TOTAL: ${estabelecimentos.length}\n`);
+  Logger.log(`📊 Planilha criada: ${sheet.getUrl()}`);
+}
