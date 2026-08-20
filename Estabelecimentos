@@ -1,5 +1,5 @@
 const WORDPRESS_URL = 'https://vejario.abril.com.br';
-const TOKEN = 'rnkU 8sAj OFEE mnlW OsH0 KOyi';
+const TOKEN = 'XXXXXXXXXXXXXXXXXX';
 const ESTABELECIMENTO_ID = 466902; // Tula Bistrô Vegetal
 
 function testarFormatosAutenticacao() {
