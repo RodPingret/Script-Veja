@@ -1,4 +1,4 @@
-const API_KEY = 'AIzaSyBfHGzzVUniHb-xs2luMAJUv_5NpMGXrmQ';
+const API_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXX';
 
 function verificarTodos511() {
   const estabelecimentos = [
